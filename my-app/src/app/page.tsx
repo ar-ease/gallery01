@@ -1,3 +1,5 @@
+"use client";
+import BentoGrid from "@/components/BentoGrid";
 import GalleryCard from "@/components/gallery/galleryCard";
 import GdgWelcomText from "@/components/GdgWelcomeText";
 import { ModeToggle } from "@/components/ModeToggle";
@@ -14,22 +16,8 @@ export default function Home() {
 
         <GdgWelcomText />
 
-        <div className="w-full">
-          <div className="max-w-5xl-w-5xl flex items-center flex-wrap">
-            {" "}
-            <GalleryCard />
-            <GalleryCard />
-            <GalleryCard />
-            <GalleryCard />
-            <GalleryCard />
-            <GalleryCard />
-            <GalleryCard />
-            <GalleryCard />
-            <GalleryCard />
-            <GalleryCard />
-            <GalleryCard />
-          </div>
-        </div>
+        {/* Gallery Section */}
+        <BentoGrid />
       </div>
     </div>
   );
