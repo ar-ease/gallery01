@@ -1,8 +1,14 @@
 "use client";
+import Image from "next/image";
 import { useState } from "react";
 
+interface ImageType {
+  id: number;
+  src: string;
+}
+
 const BentoGrid = () => {
-  const images = [
+  const images: ImageType[] = [
     { id: 1, src: "/api/placeholder/800/600" },
     { id: 2, src: "/api/placeholder/400/300" },
     { id: 3, src: "/api/placeholder/800/600" },
@@ -16,13 +22,9 @@ const BentoGrid = () => {
     { id: 11, src: "/api/placeholder/400/300" },
     { id: 12, src: "/api/placeholder/400/300" },
   ];
-  interface Image {
-    id: number;
-    src: string;
-  }
-  const [selectedImage, setSelectedImage] = useState(null);
 
-  // Define layout patterns for different image sizes
+  const [selectedImage, setSelectedImage] = useState<ImageType | null>(null);
+
   const getImageSize = (index: number) => {
     const pattern = index % 12;
     switch (pattern) {
@@ -37,8 +39,7 @@ const BentoGrid = () => {
     }
   };
 
-  // Function to handle image click
-  const handleImageClick = (image: any) => {
+  const handleImageClick = (image: ImageType) => {
     setSelectedImage(image);
   };
 
@@ -54,10 +55,12 @@ const BentoGrid = () => {
             )} transition-transform duration-300 hover:scale-[1.02] hover:cursor-pointer`}
           >
             <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity" />
-            <img
+            <Image
               src={image.src}
               alt={`Gallery image ${image.id}`}
-              className="h-full w-full object-cover"
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
             <div className="absolute bottom-0 left-0 right-0 p-4 text-white opacity-0 group-hover:opacity-100 transition-opacity">
               <h3 className="text-lg font-semibold">Image {image.id}</h3>
@@ -72,13 +75,20 @@ const BentoGrid = () => {
           onClick={() => setSelectedImage(null)}
         >
           <div className="relative max-w-4xl max-h-[90vh] w-full m-4">
-            <img
-              src={selectedImage.src}
-              alt={`Selected image ${selectedImage.id}`}
-              className="w-full h-full object-contain rounded-lg"
-            />
+            <div className="relative w-full h-[80vh]">
+              <Image
+                src={selectedImage.src}
+                alt={`Selected image ${selectedImage.id}`}
+                fill
+                className="object-contain rounded-lg"
+                sizes="(max-width: 1200px) 100vw"
+              />
+            </div>
             <button
-              onClick={() => setSelectedImage(null)}
+              onClick={(e) => {
+                e.stopPropagation();
+                setSelectedImage(null);
+              }}
               className="absolute top-4 right-4 text-white bg-black/50 rounded-full p-2 hover:bg-black/75 transition-colors"
             >
               <svg

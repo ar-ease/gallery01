@@ -1,6 +1,5 @@
 "use client";
 import BentoGrid from "@/components/BentoGrid";
-import GalleryCard from "@/components/gallery/galleryCard";
 import GdgWelcomText from "@/components/GdgWelcomeText";
 import { ModeToggle } from "@/components/ModeToggle";
 import SearchBar from "@/components/search/SearchBar";
